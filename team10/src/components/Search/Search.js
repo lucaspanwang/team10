@@ -19,6 +19,8 @@ function createData(area,
   pork,
   chicken,
   otherpoultry) {
+
+
   return {
     area,
     beef,
@@ -39,6 +41,7 @@ const rows = [
 ];
 
 export default function Search() {
+  const [city, setCity] = useState("City");
   useEffect(() => {
     const cityForm = document.querySelector("#city");
     for (let city of cities) {
@@ -48,7 +51,28 @@ export default function Search() {
     }
   }, []);
 
-  const cityChange = () => { };
+  const cityChange = () => {
+    setCity(document.getElementById("city").value);
+  };
+
+  // useEffect(() => {
+  //   console.log("******");
+  //   fetch(`http://localhost:4000/allrequests`)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res);
+  //       setData(res);
+  //     });
+  // }, []);
+
+  const showCity = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:4000/citystatistics/${city}`)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   return (
     <div className="log-container">
@@ -63,7 +87,7 @@ export default function Search() {
               ></select>
             </form>
             <form>
-              <button className="suf-submit">Search</button>
+              <button className="suf-submit" onClick={showCity}>Search</button>
             </form>
           </div>
           <TableContainer component={Paper}>
