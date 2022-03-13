@@ -40,12 +40,9 @@ app.get('/citystatistics/:cityname', async (req, res) => {
     typeAndAmount['other-poultry'] = 0;
 
     for (const request of requestsByCity) { 
-        const food_list = request['request-food-list'];       
-        for (const food of food_list) {
-            const type = food['type'];
-            const amount = food['amount'];
-            typeAndAmount[type] += amount;
-        }
+        const type = request['type'];
+        const amount = request['amount'];
+        typeAndAmount[type] += parseInt(amount);
     }
     data['food_list'] = typeAndAmount;
     res.json(data);

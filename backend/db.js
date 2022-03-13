@@ -20,7 +20,6 @@ module.exports = {
         return result;
     },
     saveFoodRequest: async function(food_request) {
-        food_request['request-food-list'] = JSON.parse(food_request['request-food-list']);
         await client.db('hackathon').collection('food_requests').insertOne(food_request);
     },
     deleteAllRequests: async function() {
