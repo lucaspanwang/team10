@@ -33,16 +33,50 @@ export default function Request() {
   const foodChange = () => {
     setFoodName(document.querySelector(".food-list").value);
   };
-  
+
   const urgentChange = () => {
     setUrgent(Number(document.getElementById("urgent-level").value));
-  }
+  };
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    let food = {};
-    food[foodName] = foodAmount;
-    console.log(food);
+    if (
+      partner === "" ||
+      email === "" ||
+      city === "City" ||
+      postcode === "" ||
+      foodName === ""
+    ) {
+      alert("Please complete the form!");
+    } else {
+      let foodList = [];
+      let food = {};
+      food[foodName] = foodAmount;
+      foodList.push(food);
+      let todayDate = new Date().toISOString().slice(0, 10);
+      fetch(`http://localhost:4000/requestfood`, {
+        method: "POST",
+        mode: "no-cors",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "partner-name": partner,
+          city: city,
+          postcode: postcode,
+          "request-food-list": foodList,
+          "request-date": todayDate,
+          "urgent-level": urgent,
+        }),
+      })
+        .then((res) => res.text())
+        .then((text) => console.log(text))
+        .then(alert("You have succuessfully submit your request!"))
+        .then(window.location.reload());
+    }
   };
 
   return (
@@ -68,7 +102,7 @@ export default function Request() {
                 type="text"
                 placeholder="Contact Email"
                 onBlur={() => {
-                  setEmail(document.querySelector("#email").value);
+                  setEmail(document.querySelector("#contact-email").value);
                 }}
               />
             </form>
@@ -86,7 +120,7 @@ export default function Request() {
                 type="text"
                 placeholder="Postcode"
                 onBlur={() => {
-                  setPostcode(document.getElementById("#postcode").value);
+                  setPostcode(document.querySelector("#postcode").value);
                 }}
               />
             </form>
@@ -114,7 +148,9 @@ export default function Request() {
                 type="number"
                 placeholder="kg"
                 onBlur={() => {
-                  setFoodAmount(document.getElementById("food-amount").value);
+                  setFoodAmount(
+                    Number(document.getElementById("food-amount").value)
+                  );
                 }}
               />
             </form>
