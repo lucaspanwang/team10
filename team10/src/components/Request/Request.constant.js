@@ -135,6 +135,7 @@ export const cities = [
 ];
 
 export const food = [
+    "Food",
     "beef",
     "diary",
     "egg",

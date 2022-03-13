@@ -3,6 +3,13 @@ import "./Request.css";
 import { cities, food } from "./Request.constant";
 
 export default function Request() {
+  const [partner, setPartner] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("City");
+  const [postcode, setPostcode] = useState("");
+  const [urgent, setUrgent] = useState(1);
+  const [foodName, setFoodName] = useState("");
+
   useEffect(() => {
     const cityForm = document.querySelector("#city");
     for (let city of cities) {
@@ -10,17 +17,29 @@ export default function Request() {
       cityOption.innerHTML = city;
       cityForm.appendChild(cityOption);
     }
-    const foodList = document.querySelector(".foodList");
-    for (let oneFood of food) { 
+    const foods = document.querySelector(".food-list");
+    for (let oneFood of food) {
       const foodOption = document.createElement("option");
       foodOption.innerHTML = oneFood;
-      foodList.appendChild(foodOption);
+      foods.appendChild(foodOption);
     }
   }, []);
 
-  const cityChange = () => { };
+  const cityChange = () => {
+    setCity(document.getElementById("city").value);
+  };
+
+  const foodChange = () => {
+    setFoodName(document.querySelector(".food-list"));
+  };
   
-  const foodChange = () => { };
+  const urgentChange = () => {
+    setUrgent(Number(document.getElementById("urgent-level").value));
+  }
+
+  const clickSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="log-container">
@@ -34,7 +53,7 @@ export default function Request() {
                 type="text"
                 placeholder="Partner Name"
                 onBlur={() => {
-                  // setUserName(document.getElementById("username").value);
+                  setPartner(document.querySelector("#partner-name").value);
                 }}
               />
             </form>
@@ -45,7 +64,7 @@ export default function Request() {
                 type="text"
                 placeholder="Contact Email"
                 onBlur={() => {
-                  // setUserPwd(document.getElementById("password").value);
+                  setEmail(document.querySelector("#email").value);
                 }}
               />
             </form>
@@ -63,32 +82,30 @@ export default function Request() {
                 type="text"
                 placeholder="Postcode"
                 onBlur={() => {
-                  // setUserPwd(document.getElementById("password").value);
+                  setPostcode(document.getElementById("#postcode").value);
                 }}
               />
             </form>
             <form>
               <select
                 className="suf-input-first"
-                id="city"
-                onChange={cityChange}
+                id="urgent-level"
+                onChange={urgentChange}
               >
-                <option value="">1 (slightly urgent)</option>
-                <option value="">2 (medium urgent)</option>
-                <option value="">3 (very urgent)</option>
+                <option value="1">Urgent Level</option>
+                <option value="1">1 (slightly urgent)</option>
+                <option value="2">2 (medium urgent)</option>
+                <option value="3">3 (very urgent)</option>
               </select>
             </form>
-            
-            <form action="">
+
+            <form>
               <select
-                className="suf-select foodList"
-                id="food1"
+                className="suf-select food-list"
                 onChange={foodChange}
-              >
-              </select>
+              ></select>
               <input
-                className="suf-input2"
-                id="age"
+                className="suf-input2 food-amount"
                 type="number"
                 placeholder="kg"
                 onBlur={() => {
@@ -97,7 +114,9 @@ export default function Request() {
               />
             </form>
             <form>
-              <button className="suf-submit">Submit</button>
+              <button className="suf-submit" onClick={clickSubmit}>
+                Submit
+              </button>
             </form>
           </div>
         </section>
