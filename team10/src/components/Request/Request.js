@@ -9,6 +9,7 @@ export default function Request() {
   const [postcode, setPostcode] = useState("");
   const [urgent, setUrgent] = useState(1);
   const [foodName, setFoodName] = useState("");
+  const [foodAmount, setFoodAmount] = useState(0);
 
   useEffect(() => {
     const cityForm = document.querySelector("#city");
@@ -30,7 +31,7 @@ export default function Request() {
   };
 
   const foodChange = () => {
-    setFoodName(document.querySelector(".food-list"));
+    setFoodName(document.querySelector(".food-list").value);
   };
   
   const urgentChange = () => {
@@ -39,6 +40,9 @@ export default function Request() {
 
   const clickSubmit = (e) => {
     e.preventDefault();
+    let food = {};
+    food[foodName] = foodAmount;
+    console.log(food);
   };
 
   return (
@@ -105,11 +109,12 @@ export default function Request() {
                 onChange={foodChange}
               ></select>
               <input
-                className="suf-input2 food-amount"
+                className="suf-input2"
+                id="food-amount"
                 type="number"
                 placeholder="kg"
                 onBlur={() => {
-                  // setUserAge(document.getElementById("age").value);
+                  setFoodAmount(document.getElementById("food-amount").value);
                 }}
               />
             </form>
