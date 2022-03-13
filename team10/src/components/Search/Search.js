@@ -36,8 +36,7 @@ function createData(area,
 }
 
 const rows = [
-  createData('Vancouver', 159, 6.0, 24, 4.0),
-  createData('Burnaby', 237, 9.0, 37, 4.3),
+  createData('Burnaby', 20, 0, 0, 0, 0, 0, 0, 0, 0),
 ];
 
 export default function Search() {
