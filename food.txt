@@ -1,0 +1,88 @@
+POST
+/requestfood
+
+{
+    "_id": {
+        "$oid": "622d6e0b692b543541f72999"
+    },
+    "partner-name": "XXX",
+	  "contact-email": "XXX@XXX.com",
+	  "city": "Vancouver",
+	  "postcode": "V7C0A4",
+	  "request-food-list": [
+		  {
+			  "type": "beef",
+			  "amount": 20
+		  },
+		  {
+			  "type": "diary",
+			  "amount": 30
+		  }
+	  ],
+	  "request-date": "2022-03-12",
+	  "urgent-level": 3
+}
+
+GET
+/allrequests
+{
+	data: [
+		{
+			partner-name: "XXX",
+			contact-email: "XXX@XXX.com",
+			city: "Vancouver",
+			postcode: "V7C0A4",
+			type: "beef",
+			amount: 20,
+			request-date: "2022-03-12",
+			urgent-level: 3
+		},
+		{...},
+		{...}
+	]
+}
+
+GET
+/citystatistics/{city-name}
+{
+	"city":"Vancouver",
+	"food_list":
+	{
+		"beef":120,
+		"diary":80,
+		"egg":0,
+		"fruitnut":0,
+		"vegetable":0,
+		"mushroom":0,
+		"pork":0,
+		"chicken":40,
+		"other-poultry":0
+	}
+}
+
+
+
+
+type: 
+beef
+diary
+egg
+fruitnut
+vegetable
+mushroom
+pork
+chicken
+other-poultry
+
+urgent-level: 
+1 -- slightly urgent
+2 -- medium urgent
+3 -- very urgent
+
+
+
+
+
+database: hackathon 
+collection: food_requests
+const uri = "mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/Cluster0?retryWrites=true&w=majority";
